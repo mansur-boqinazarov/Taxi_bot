@@ -67,10 +67,10 @@
             order.setDirection(text);
 
             // Create keyboard buttons for number of people
-            KeyboardButton b1 = new KeyboardButton("1");
-            KeyboardButton b2 = new KeyboardButton("2");
-            KeyboardButton b3 = new KeyboardButton("3");
-            KeyboardButton b4 = new KeyboardButton("4");
+            KeyboardButton b1 = new KeyboardButton("1️⃣");
+            KeyboardButton b2 = new KeyboardButton("2️⃣");
+            KeyboardButton b3 = new KeyboardButton("3️⃣");
+            KeyboardButton b4 = new KeyboardButton("4️⃣");
             KeyboardButton b5 = new KeyboardButton("📦Pochta");
             ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup(b1, b2, b3, b4, b5)
                     .resizeKeyboard(true)
@@ -107,7 +107,7 @@
             bot.execute(sendMessageToGroup);
 
             // Confirm to the user
-            SendMessage confirmationMessage = new SendMessage(chatId, "✅ Buyurtma qabul qilindi!");
+            SendMessage confirmationMessage = new SendMessage(chatId, "𝗕𝘂𝘆𝘂𝗿𝘁𝗺𝗮 𝗾𝗮𝗯𝘂𝗹 𝗾𝗶𝗹𝗶𝗻𝗱𝗶 ✅\n𝗧𝗲𝘇 𝗼𝗿𝗮𝗱𝗮 𝗵𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶𝗹𝗮𝗿 𝘀𝗶𝘇 𝗯𝗶𝗹𝗮𝗻 𝗯𝗼𝗴'𝗹𝗮𝗻𝗮𝗱𝗶");
             bot.execute(confirmationMessage);
 
             // Clean up

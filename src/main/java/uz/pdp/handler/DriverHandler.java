@@ -35,7 +35,7 @@ public class DriverHandler {
             ketishVaqti = text;
 
             ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup(
-                    new String[]{"1", "2", "3", "4"})
+                    new String[]{"1️⃣", "2️⃣", "3️⃣", "4️⃣"})
                     .oneTimeKeyboard(true)
                     .resizeKeyboard(true);
             bot.execute(new SendMessage(chatId, "👥 Nechta yo'lovchi kerak?").replyMarkup(keyboard));
@@ -44,7 +44,7 @@ public class DriverHandler {
             yolovchilar = text;
 
             ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup(
-                    "✉️ Po'chta olinadi", "✉️ Po'chta olinmaydi")
+                    "Po'chta olinadi", "Po'chta olinmaydi")
                     .oneTimeKeyboard(true)
                     .resizeKeyboard(true);
             bot.execute(new SendMessage(chatId, "✉️ Pochtani qabul qilasizmi?").replyMarkup(keyboard));
@@ -88,7 +88,7 @@ public class DriverHandler {
                         📍 Yo'nalish:  %s
                         🕒 Ketish vaqti:  %s
                         👥 Yo'lovchilar: %s kishi olinadi
-                        ✉️ Pochta:   %s
+                        📦 %s
                         🚗 Mashina:  %s
                         📞 Telefon:  %s
                         📱 Telegram: %s

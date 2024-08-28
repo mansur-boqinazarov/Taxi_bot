@@ -52,7 +52,7 @@ public class MessageHandler {
             } else {
                 DatabaseHandler.storeChatId(newChatId);
                 bot.execute(new SendMessage(chatId, "Chat ID saqlandi: " + newChatId));
-                bot.execute(new SendMessage(newChatId,"Siz haydovchilik huquqi berildi✅"));
+                bot.execute(new SendMessage(newChatId,"Sizga haydovchilik huquqi berildi✅"));
             }
         }
     }
