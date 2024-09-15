@@ -52,5 +52,22 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    public static String getAll() {
+        StringBuilder usernamesList = new StringBuilder("Usernamelar ro'yhati:\n\n");
+        String selectQuery = "SELECT username FROM drivers_username";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            int index = 1; // Ro'yxatni tartib raqami bilan formatlash uchun
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                // Har bir foydalanuvchini chiroyli formatda qo'shish
+                usernamesList.append(index++).append(". @").append(username).append("\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usernamesList.toString();
+    }
 
 }
