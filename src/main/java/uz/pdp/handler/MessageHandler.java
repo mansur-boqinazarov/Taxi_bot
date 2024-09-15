@@ -7,53 +7,60 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.ForwardMessage;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SendPhoto;
+import com.pengrad.telegrambot.response.SendResponse;
+import lombok.SneakyThrows;
 import uz.pdp.db.DatabaseHandler;
+
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 
 public class MessageHandler {
-    private static final long TARGET_GROUP_CHAT_ID = -1002197254829L;
-    private static final long SUPER_ADMIN_CHAT_ID = 5127045086L;
-    private TelegramBot bot;
+    private static final long TARGET_GROUP_CHAT_ID = -4593184390L;
+    private final TelegramBot bot;
 
     public MessageHandler(TelegramBot bot) {
         this.bot = bot;
     }
 
+    @SneakyThrows
     public void handleForwardMessage(Message message) {
         long chatId = message.chat().id();
         int messageId = message.messageId();
         String username = message.from().username();
-        String userFirstName = message.from().firstName();
         User user = message.from();
 
-        // Forward the message to the target group
-        bot.execute(new ForwardMessage(TARGET_GROUP_CHAT_ID, chatId, messageId));
+        if (!DatabaseHandler.isDriver(username) && (!Objects.equals(user.username(), "test_uchun_username") || !Objects.equals(user.username(),"Ortiqov89")) ) {
+            bot.execute(new ForwardMessage(-4593184390L , chatId, messageId));
+            bot.execute(new DeleteMessage(chatId, messageId));
 
 
-        // Delete the original message
-        bot.execute(new DeleteMessage(chatId, messageId));
 
-        String userProfileLink = "tg://user?id=" + user.id();
-
-
-        bot.execute(new SendMessage(chatId, "𝗔𝘀𝘀𝗮𝗹𝗼𝗺𝘂 𝗔𝗹𝗮𝘆𝗸𝘂𝗺  [" + user.firstName() + "](" + userProfileLink + ")" + "\n𝗕𝘂𝘆𝘂𝗿𝘁𝗺𝗮𝗻𝗴𝗴𝗶𝘇 𝗛𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶𝗹𝗮𝗿 𝗴𝘂𝗿𝘂𝗵𝗶𝗴𝗮 𝘆𝘂𝗯𝗼𝗿𝗶𝗹𝗱𝗶\n𝗜𝘀𝗵𝗼𝗻𝗰𝗵𝗹𝗶 𝗛𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶𝗹𝗮𝗿 𝘁𝗲𝘇 𝗼𝗿𝗮𝗱𝗮 𝘀𝗶𝘇 𝗯𝗶𝗹𝗮𝗻 𝗯𝗼𝗴'𝗹𝗮𝗻𝗮𝗱𝗶").parseMode(ParseMode.Markdown));
+            SendResponse execute = bot.execute(new SendPhoto(chatId, new java.io.File("src/main/resources/img/img.png"))
+                    .caption("𝗔𝘀𝘀𝗮𝗹𝗼𝗺𝘂 𝗔𝗹𝗮𝘆𝗸𝘂𝗺  #" + user.firstName() +
+                            "\n\nSIZNING ZAKASINGIZ SHAFYORLAR GURUHIGA TUSHDI✅\nSIZGA ISHONCHLI SHAFYORLARIMIZ ALOQAGA CHIQISHADI✅\n\n" +
+                            "BOT ORQALI ZAKAS BERISH: [USTIGA BOSING](https://t.me/teststst)")
+                    .parseMode(ParseMode.Markdown));
+            TimeUnit.SECONDS.sleep(20);
+            bot.execute(new DeleteMessage(chatId, execute.message().messageId()));
+        }
 
     }
 
     public void handleAdminCommand(long chatId, String text) {
         if ("/start".equals(text)) {
-            bot.execute(new SendMessage(chatId, "Chat id yuboring:"));
-        } else if (text.matches("-?\\d+")) {
-            long newChatId = Long.parseLong(text);
-
-
-            if (DatabaseHandler.isDriver(newChatId)) {
-                bot.execute(new SendMessage(chatId, "Bu haydovchi oldindan mavjud!!!"));
+            bot.execute(new SendMessage(chatId, "𝗤𝗼'𝘀𝗵𝗺𝗼𝗾𝗵𝗶 𝗯𝗼'𝗹𝗴𝗮𝗻 𝘂𝘀𝗲𝗿𝗻𝗮𝗺𝗲𝗻𝗶 𝗸𝗶𝗿𝗶𝘁𝗶𝗻𝗴: \n\n𝘕𝘢𝘮𝘶𝘯𝘢: @Java_Dev07"));
+        } else if (text.startsWith("@")) {
+            String username = text.substring(1);
+            if (DatabaseHandler.isDriver(username)) {
+                bot.execute(new SendMessage(chatId, "𝗕𝘂 𝗵𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶 𝗼𝗹𝗱𝗶𝗻𝗱𝗮𝗻 𝗺𝗮𝘃𝗷𝘂𝗱 !!!"));
             } else {
-                DatabaseHandler.storeChatId(newChatId);
-                bot.execute(new SendMessage(chatId, "Chat ID saqlandi: " + newChatId));
-                bot.execute(new SendMessage(newChatId,"Sizga haydovchilik huquqi berildi✅"));
+                DatabaseHandler.storeUsername(username);
+                bot.execute(new SendMessage(chatId, "𝙐𝙨𝙚𝙧𝙣𝙖𝙢𝙚𝙡𝙖𝙧 𝙧𝙤'𝙮𝙝𝙖𝙩𝙞𝙜𝙖 𝙨𝙝𝙪 @"+username+" 𝙣𝙞 𝙦𝙤'𝙨𝙝𝙙𝙞𝙣𝙜𝙜𝙞𝙯✅\n\nAgar yana qo'shmoqchi bo'lsanggiz /start buyurg'ini bering"));
+                bot.execute(new SendMessage(username, "Sizga shafyorlik huquqi berildi✅"));
             }
         }
     }
+
 }

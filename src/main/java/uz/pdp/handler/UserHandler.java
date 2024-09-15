@@ -56,7 +56,7 @@
 
         private static void startOrderProcess(Long chatId, User user) {
             SendMessage sendMessage = new SendMessage(chatId, "Salom, " + user.firstName() + "!\n" +
-                    "Yonalish manzilni kiritng:\n\n𝑴𝒂𝒔𝒂𝒍𝒂𝒏:  𝘙𝘢𝘱𝘲𝘰𝘯𝘥𝘢𝘯 𝘛𝘰𝘴𝘩𝘬𝘦𝘯𝘵𝘨𝘢");
+                    "Yonalish manzilni kiritng:\n\nNamuna:  𝘙𝘢𝘱𝘲𝘰𝘯𝘥𝘢𝘯 𝘛𝘰𝘴𝘩𝘬𝘦𝘯𝘵𝘨𝘢");
             bot.execute(sendMessage);
             userSteps.put(chatId, "waiting_for_direction");
             userOrders.put(chatId, new Order());
@@ -86,7 +86,7 @@
             Order order = userOrders.get(chatId);
             order.setNumberOfPeople(text);
 
-            SendMessage sendMessage = new SendMessage(chatId, "📞Telefon nomeringizni kiriting:");
+            SendMessage sendMessage = new SendMessage(chatId, "📞Telefon nomeringizni yuboring:\n\nNamuna: +998912345678");
             bot.execute(sendMessage);
             userSteps.put(chatId, "waiting_for_phone_number");
         }
@@ -97,7 +97,7 @@
             User user = update.message().from();
             String userProfileLink = "tg://user?id=" + user.id();
             // Send the collected data to the group
-            Long groupId = -1002197254829L;
+            Long groupId = -4593184390L;
             String orderDetails = "🚗YANGI BUYURTMA KELDI\n\n" +
                     "🛣Yo'nalish: " + order.getDirection() + "\n" +
                     "👥Odamlar soni: " + order.getNumberOfPeople() + "\n" +
@@ -107,7 +107,7 @@
             bot.execute(sendMessageToGroup);
 
             // Confirm to the user
-            SendMessage confirmationMessage = new SendMessage(chatId, "𝗕𝘂𝘆𝘂𝗿𝘁𝗺𝗮 𝗾𝗮𝗯𝘂𝗹 𝗾𝗶𝗹𝗶𝗻𝗱𝗶 ✅\n𝗧𝗲𝘇 𝗼𝗿𝗮𝗱𝗮 𝗵𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶𝗹𝗮𝗿 𝘀𝗶𝘇 𝗯𝗶𝗹𝗮𝗻 𝗯𝗼𝗴'𝗹𝗮𝗻𝗮𝗱𝗶");
+            SendMessage confirmationMessage = new SendMessage(chatId, "𝗕𝘂𝘆𝘂𝗿𝘁𝗺𝗮 𝗾𝗮𝗯𝘂𝗹 𝗾𝗶𝗹𝗶𝗻𝗱𝗶 ✅\n𝗧𝗲𝘇 𝗼𝗿𝗮𝗱𝗮 𝗵𝗮𝘆𝗱𝗼𝘃𝗰𝗵𝗶𝗹𝗮𝗿 𝘀𝗶𝘇 𝗯𝗶𝗹𝗮𝗻 𝗯𝗼𝗴'𝗹𝗮𝗻𝗮𝗱𝗶.\n\nAgar yana zakas bermoqchi bo'lsanggiz /start buyug'ini bering");
             bot.execute(confirmationMessage);
 
             // Clean up
